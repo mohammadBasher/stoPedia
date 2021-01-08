@@ -1,0 +1,29 @@
+.content{
+    background: #2BC0E4;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #EAECC6, #2BC0E4);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #EAECC6, #2BC0E4); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    height: 100vh;
+}
+.form-space{
+    /* background: gray; */
+    width: 50vw;
+	height: 80vh;
+	/* background-color: red; */
+	
+	position: absolute;
+	top:0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+  	
+	margin: auto;
+
+}
+.content{
+    text-align: center;
+}
+.text-sp{
+    font-weight: bold;
+    color: hotpink;
+    font-size: 25px;
+}
