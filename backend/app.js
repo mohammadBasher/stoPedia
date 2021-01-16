@@ -5,6 +5,9 @@ const cors = require('cors');
 
 const signup = require('./routes/signup').signup;
 const login = require('./routes/login').login;
+//const fp = require('./routes/login').fp;
+const editor = require('./routes/editor');
+const readblogs = require('./routes/readblogs');
 
 const app = express();
 
@@ -24,6 +27,9 @@ const port = "4000";
 
 app.use(signup);
 app.use(login);
+//app.use(fp);
+app.use(editor);
+app.use(readblogs);
 
 app.listen(port,()=>{
     console.log("Server is running on "+port);

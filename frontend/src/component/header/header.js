@@ -18,7 +18,10 @@ return(
             <div className="collapse navbar-collapse header-content" id="navbarNav">
              <ul className="navbar-nav ">
                 <li className="nav-item mx-5 ">
-                <Link className="nav-link"  aria-current="page" >Write</Link>
+                <Link className="nav-link"  to="/editor" >Write</Link>
+                </li>
+                <li className="nav-item mx-5 ">
+                <Link className="nav-link"  to="/readblogs" >Read</Link>
                 </li>
                 <li className="nav-item mx-5">
                 <Link className="nav-link" to="/signup" >Sign Up</Link>
