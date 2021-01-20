@@ -1,15 +1,15 @@
 import React from "react";
-import { DraftailEditor } from "draftail";
-import { convertFromRaw, EditorState } from "draft-js";
+import { convertFromRaw } from "draft-js";
 import "draft-js/dist/Draft.css";
 import "draftail/dist/draftail.css";
 import "draft-js-inline-toolbar-plugin/lib/plugin.css";
 import "draft-js-side-toolbar-plugin/lib/plugin.css";
+import { convertToHTML } from "draft-convert";
 class ReadBlogs extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            editorState: EditorState.createEmpty()
+            blogs: []
         };
         this.changeState = this.changeState.bind(this);
     }
@@ -18,6 +18,7 @@ class ReadBlogs extends React.Component {
             editorState: state
         });
     }
+    //function to store blogs from the database to the blogs state..
     submitHandler = () => {
         fetch("http://localhost:4000/readblogs",{
             method:"GET",
@@ -26,27 +27,29 @@ class ReadBlogs extends React.Component {
             }
         })
         .then(result => result.json())
-        .then(result =>{
-            //const data = convertFromRaw(...result);
-            console.log(result);
-            //alert("Success");
+        .then(result => {
+            var blogs=[];
+            var blog;
+            for (var i = 0; i < result.length; i++) {
+                blog = convertToHTML(convertFromRaw(result[i].content));
+                blogs.push(blog);
+              }
             this.setState({
-                editorState: EditorState.createWithContent(convertFromRaw(result.content))
-            });
+                blogs: blogs
+            })
+            console.log(blogs);
         })
         .catch(err => {
             console.log(err);
         })
     }
     render() {
+        const blogs = this.state.blogs; //This variable hold the array of blogs
         return (
             <div className="App">
-                <DraftailEditor
-                    editorState={this.state.editorState}
-                    onChange={this.changeState}
-                    placeholder="Tell your story..."
-                />
                 <button onClick={this.submitHandler}>Show saved content</button>
+                <h1>Blogs</h1>
+                <button >Blogs</button> 
             </div>
         );
     }
