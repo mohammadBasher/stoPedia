@@ -14,7 +14,7 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-mongoose.connect('mongodb+srv://stopedia:snyh2vYLyVEhCCfA@cluster0.e27pj.mongodb.net/stopedia?retryWrites=true&w=majority',{ 
+mongoose.connect('mongodb://localhost:27017/stopedia',{ 
     useNewUrlParser:true,
     useUnifiedTopology:true,
     useCreateIndex:true 

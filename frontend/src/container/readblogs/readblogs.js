@@ -1,58 +1,65 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import { convertFromRaw } from "draft-js";
 import "draft-js/dist/Draft.css";
 import "draftail/dist/draftail.css";
 import "draft-js-inline-toolbar-plugin/lib/plugin.css";
 import "draft-js-side-toolbar-plugin/lib/plugin.css";
 import { convertToHTML } from "draft-convert";
-class ReadBlogs extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            blogs: []
-        };
-        this.changeState = this.changeState.bind(this);
-    }
-    changeState(state) {
-        this.setState({
-            editorState: state
-        });
-    }
-    //function to store blogs from the database to the blogs state..
-    submitHandler = () => {
-        fetch("http://localhost:4000/readblogs",{
-            method:"GET",
-            headers:{
-                "Content-type":"application/json;charset=utf-8"
-            }
-        })
-        .then(result => result.json())
-        .then(result => {
-            var blogs=[];
-            var blog;
-            for (var i = 0; i < result.length; i++) {
-                blog = convertToHTML(convertFromRaw(result[i].content));
-                blogs.push(blog);
-              }
-            this.setState({
-                blogs: blogs
+import Header from './../../component/header/header'
+// import React from 'react';
+import './readblogs.css'
+const ReadBlogs = () => {
+
+        const [blogs,setBlogs] = useState([]);
+        // now we will put the blogs data in hooks parameter (blogs) 
+        useEffect(()=>{
+            fetch("http://localhost:4000/readblogs",{
+                method:"GET",
+                headers:{
+                    "Content-type":"application/json;charset=utf-8"
+                }
             })
-            console.log(blogs);
-        })
-        .catch(err => {
-            console.log(err);
-        })
-    }
-    render() {
-        const blogs = this.state.blogs; //This variable hold the array of blogs
-        return (
-            <div className="App">
-                <button onClick={this.submitHandler}>Show saved content</button>
-                <h1>Blogs</h1>
-                <button >Blogs</button> 
-            </div>
-        );
-    }
+            .then(result => result.json())
+            .then(result => {
+                var blogsloc=[];
+                var blog;
+                for (var i = 0; i < result.length; i++) {
+                    blog = convertToHTML(convertFromRaw(result[i].content));
+                    blogsloc.push(blog);
+                }
+            setBlogs(blogsloc)
+            // console.log(blogs)
+            })
+            .catch(err => {
+                console.log(err);
+            })
+        
+       
+      },[]);
+
+return(
+
+  <div className="container-fluid App" >
+      <div>
+      <Header />
+      </div>
+      <div className="blog-contanier" >
+          {
+              blogs.map((each)=>{
+                  return (
+                      <div className="card card-cls my-4 mx-2 p-3 ">
+                             <div className="card-text">
+                                 <span  dangerouslySetInnerHTML={{__html:each}}></span>
+                             <button className="btn btn-outline-dark">see more</button>    
+                             </div>
+                            
+                      </div>
+                  )
+              })
+          }
+      </div>
+  </div>
+)
 }
 
-export default ReadBlogs;
+export default ReadBlogs
