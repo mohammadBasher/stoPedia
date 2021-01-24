@@ -1,7 +1,12 @@
-.App {
+.App-editor {
     font-family: sans-serif;
     text-align: center;
     display: block;
+    position: absolute;
+    margin-top: 0;
+    width: 100%;
+    /* min-height: 80vh; */
+    border:2px solid black;
 }
 /* Override default */
 .Draftail-Toolbar {
@@ -12,10 +17,11 @@
 .Draftail-Editor {
     border: none !important;
     width: 60% !important;
+    min-height: 300px;
     margin-top: 100px !important;
     margin-left: auto !important;
     margin-right: auto !important;
-    /* background-color: yellow !important; */
+    background-color: yellow !important;
 }
 /* Override default */
 .public-DraftEditor-content {
