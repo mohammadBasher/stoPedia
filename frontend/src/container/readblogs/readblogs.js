@@ -39,7 +39,7 @@ const ReadBlogs = () => {
 
 return(
 
-  <div className="container-fluid App" >
+  <div className=" App container-fluid" >
       <div>
       <Header />
       </div>

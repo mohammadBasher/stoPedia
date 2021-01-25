@@ -10,12 +10,13 @@ import "draft-js/dist/Draft.css";
 import "draftail/dist/draftail.css";
 import "draft-js-inline-toolbar-plugin/lib/plugin.css";
 import "draft-js-side-toolbar-plugin/lib/plugin.css";
+import Header from './../../component/header/header'
 const inlineToolbarPlugin = createInlineToolbarPlugin();
 const { InlineToolbar } = inlineToolbarPlugin;
 const sideToolbarPlugin = createSideToolbarPlugin();
 const { SideToolbar } = sideToolbarPlugin;
 const undoPlugin = createUndoPlugin();
-const { UndoButton, RedoButton } = undoPlugin;
+// const { UndoButton, RedoButton } = undoPlugin;
 const plugins = [inlineToolbarPlugin, sideToolbarPlugin,undoPlugin];
 class Editor extends React.Component {
     constructor(props) {
@@ -50,7 +51,9 @@ class Editor extends React.Component {
 
     render() {
         return (
-            <div className="App">
+       <div>
+            <Header />
+            <div className="App-editor" >
                 <DraftailEditor
                     editorState={this.state.editorState}
                     onChange={this.changeState}
@@ -89,10 +92,13 @@ class Editor extends React.Component {
                         )
                     }
                 </SideToolbar>
-                <UndoButton />
-                <RedoButton />
-                <button onClick={this.submitHandler}>Submit</button>
+                 <div className="toolbox my-3">
+                    {/* <UndoButton />
+                    <RedoButton /> */}
+                    <button className="btn btn-outline-dark" onClick={this.submitHandler}>Submit</button>
+                 </div>
             </div>
+        </div>
         );
     }
 }
