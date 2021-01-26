@@ -20,24 +20,23 @@ class SignUp extends Component{
    event.preventDefault();
 
    //alert(`NAME = ${this.state.fullName} EMAIL= ${this.state.email}`)
-   
-   const data = { fullname: this.state.fullName,username: this.state.username,email: this.state.email,password: this.state.password };
-   console.log(data);
-   fetch('http://localhost:4000/signup',{
-     method: 'POST',
-     headers: {
-       "Content-type": "application/json"
-     },
-     body: JSON.stringify(data)
-   })
-   .then(res => res.json())
-   .then((res) => {
-     console.log(res);
-     alert("Signup success!! You can login now");
-   })
-   .catch((err) => {
-     console.log(err);
-   })
+    const data = { fullname: this.state.fullName,username: this.state.username,email: this.state.email,password: this.state.password };
+    console.log(data);
+    fetch('http://localhost:4000/signup',{
+      method: 'POST',
+      headers: {
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .then((res) => {
+      console.log(res);
+      alert("Signup success!! You can login now");
+    })
+    .catch((err) => {
+      console.log(err);
+    })
   
    this.setState({
     fullName:'',
@@ -62,6 +61,7 @@ return(
           <input type="text" placeholder="Full Name" 
           className="form-control"
           value={this.state.fullName}
+          required="required"
           onChange={this.handleChange("fullName")}
           name="fullName"
           />
@@ -69,10 +69,11 @@ return(
 
         <div className="form-group mb-5">
           <input 
-          type="text" 
+          type="email" 
           placeholder="Email" 
           className="form-control"
           value={this.state.email}
+          required="required"
           onChange={this.handleChange("email")}
           name="email"
           />
@@ -84,6 +85,7 @@ return(
           placeholder="username" 
           className="form-control"
           value={this.state.username}
+          required="required"
           onChange={this.handleChange("username")}
           name="username"
           />
@@ -91,10 +93,11 @@ return(
 
         <div className="form-group mb-5">
           <input 
-           type="text" 
+           type="password" 
            placeholder="password" 
            className="form-control"
            value={this.state.password}
+           required="required"
            onChange={this.handleChange("password")}
            name="password"
           />

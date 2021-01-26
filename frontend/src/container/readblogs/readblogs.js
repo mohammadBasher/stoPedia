@@ -14,6 +14,7 @@ const ReadBlogs = () => {
         // now we will put the blogs data in hooks parameter (blogs) 
         useEffect(()=>{
             fetch("http://localhost:4000/readblogs",{
+                credentials:"include",
                 method:"GET",
                 headers:{
                     "Content-type":"application/json;charset=utf-8"
@@ -21,14 +22,19 @@ const ReadBlogs = () => {
             })
             .then(result => result.json())
             .then(result => {
-                var blogsloc=[];
-                var blog;
-                for (var i = 0; i < result.length; i++) {
-                    blog = convertToHTML(convertFromRaw(result[i].content));
-                    blogsloc.push(blog);
+                if(result.err==="true"){
+                    alert("Redirect user to login page");
                 }
-            setBlogs(blogsloc)
-            // console.log(blogs)
+                else{
+                    var blogsloc=[];
+                    var blog;
+                        for (var i = 0; i < result.length; i++) {
+                            blog = convertToHTML(convertFromRaw(result[i].content.content));
+                            blogsloc.push(blog);
+                        }
+                setBlogs(blogsloc)
+                // console.log(blogs)
+                }
             })
             .catch(err => {
                 console.log(err);
