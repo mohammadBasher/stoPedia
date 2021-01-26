@@ -29,6 +29,9 @@ return(
                 <li className="nav-item mx-5 ">
                 <Link className="nav-link" to="/login">Log in</Link>
                 </li>
+                <li className="nav-item mx-5 ">
+                <Link className="nav-link" to="/logout">Log out</Link>
+                </li>
                
               </ul>
             </div>

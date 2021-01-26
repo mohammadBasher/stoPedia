@@ -1,18 +1,25 @@
 const Users = require('../models/user');
+const bcrypt = require('bcrypt');
 
 const login = (req,res,next) => {
+    if(req.session.isLoggedIn===true){
+        var response = { e:"You are already logged in " };
+        return res.send(response);
+    }
     const {email,password} = req.body;
-    console.log(req.body);
-        Users.findOne({email},(err, user) =>{
+      Users.findOne({email},(err, user) =>{
             if(err || !user){
-                console.log("some error occured");
-                res.send("Email not exist");
+                const e = {e:"Please sign up first "}
+                res.send(e);
             }
-            else if(user.password != password){
-                res.send("your email and password doesn't match");
+            else if(!bcrypt.compareSync(password, user.password)){
+                const e = {e:"Please enter a valid email or password"}
+                res.send(e);
             }
             else{
-                console.log(user.username);
+                req.session.user = user; 
+                req.session.isLoggedIn=true;
+                console.log(req.session);
                 res.send(user);
             }
         })

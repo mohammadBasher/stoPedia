@@ -20,6 +20,7 @@ class Login extends Component{
    const data = { "email":this.state.email,"password":this.state.password };
    fetch('http://localhost:4000/login',{
      method: 'post',
+     credentials:"include",
      headers: {
        "Content-type":"application/json"
      },
@@ -27,8 +28,12 @@ class Login extends Component{
    })
    .then(res => res.json())
    .then((res) => {
-     console.log(res);
-     alert("Hello "+res.username);
+     if(!res.username){
+      alert(res.e);
+     }
+     else{
+      alert("Redirect user to readblogs");
+    }
    })
    .catch((err) => {
      console.log(err);
@@ -54,10 +59,11 @@ class Login extends Component{
         
         <div className="form-group mb-5">
           <input 
-          type="text" 
+          type="email" 
           placeholder="Email" 
           className="form-control"
           value={this.state.email}
+          required="required"
           onChange={this.handleChange("email")}
           name="email"
           />
@@ -67,10 +73,11 @@ class Login extends Component{
 
         <div className="form-group mb-5">
           <input 
-           type="text" 
+           type="password" 
            placeholder="password" 
            className="form-control"
            value={this.state.password}
+           required="required"
            onChange={this.handleChange("password")}
            name="password"
           />

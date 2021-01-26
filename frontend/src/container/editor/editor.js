@@ -35,14 +35,22 @@ class Editor extends React.Component {
         const data = {"content":convertToRaw(this.state.editorState.getCurrentContent())};
         console.log(data.content);
         fetch("http://localhost:4000/editor",{
+            credentials:"include",
             method:"POST",
             headers:{
                 "Content-type":"application/json"
             },
             body: JSON.stringify(data)
         })
+        .then(result => result.json())
         .then(result =>{
-            alert("Success");
+            console.log(result);
+            if(result.err==="true"){
+                alert("Redirect user to login page");
+            }
+            else{
+                alert("your data has been successfully saved ");
+            }
         })
         .catch(err => {
             console.log(err);
@@ -95,7 +103,7 @@ class Editor extends React.Component {
                  <div className="toolbox my-3">
                     {/* <UndoButton />
                     <RedoButton /> */}
-                    <button className="btn btn-outline-dark" onClick={this.submitHandler}>Submit</button>
+                    <button className="btn btn-outline-dark" onClick={this.submitHandler}>Post</button>
                  </div>
             </div>
         </div>
