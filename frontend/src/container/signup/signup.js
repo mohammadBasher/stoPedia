@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Redirect } from 'react-router-dom';
 import './style.css'
 
 
@@ -7,12 +8,14 @@ class SignUp extends Component{
    fullName:'',
    username:'',
    email:'',
-   password:''
+   password:'',
+   isAuth:"false"
   }
   handleChange = name =>event =>{
     
     this.setState({
-      [name] : event.target.value
+      [name] : event.target.value,
+      isAuth:"false"
     })
   }
 
@@ -33,6 +36,9 @@ class SignUp extends Component{
     .then((res) => {
       console.log(res);
       alert("Signup success!! You can login now");
+      this.setState({
+        isAuth:"true"
+      })
     })
     .catch((err) => {
       console.log(err);
@@ -42,10 +48,18 @@ class SignUp extends Component{
     fullName:'',
     username:'',
     email:'',
-    password:''
+    password:'',
    })
 
   }
+
+  help = ()=>{
+    if(this.state.isAuth==="true")
+    {
+      return <Redirect to="/login" />
+    }
+  }
+
   render(){ 
 return(
   <div className="content">
@@ -94,7 +108,7 @@ return(
         <div className="form-group mb-5">
           <input 
            type="password" 
-           placeholder="password" 
+           placeholder="password"
            className="form-control"
            value={this.state.password}
            required="required"
@@ -107,11 +121,12 @@ return(
           <input 
            type="submit" 
            className="form-control btn btn-danger"
+           
           />
         </div>
-
+             
       </form>
-         
+         {this.help()}
   </div>
   </div>
 )
