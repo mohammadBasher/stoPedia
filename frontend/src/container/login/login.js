@@ -1,14 +1,17 @@
 import React, {Component} from 'react';
+import { Redirect } from 'react-router-dom';
 // import React from 'react';
 import './style.css'
 class Login extends Component{
   state = {
       email:'',
-      password:''
+      password:'',
+      isAuth:"false"
   }
   handleChange = name => event =>{
       this.setState({
-        [name]:event.target.value
+        [name]:event.target.value,
+        isAuth:"false"
       })
   }
 
@@ -33,6 +36,9 @@ class Login extends Component{
      }
      else{
       alert("Redirect user to readblogs");
+      this.setState({
+        isAuth:"true"
+      })
     }
    })
    .catch((err) => {
@@ -45,6 +51,12 @@ class Login extends Component{
    })
   }
   
+  help =()=>{
+    if(this.state.isAuth==="true")
+    {
+      return <Redirect to="/" />
+    }
+  }
   render(){
     return(
       <div className="content">
@@ -89,9 +101,9 @@ class Login extends Component{
            className="form-control btn btn-danger"
           />
         </div>
-
+          {this.help()}
       </form>
-         
+        
   </div>
   </div>
     )

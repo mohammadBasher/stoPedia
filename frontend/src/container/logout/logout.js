@@ -1,7 +1,8 @@
-import React, {Component} from 'react';
+import React from 'react';
+import { Redirect } from 'react-router-dom';
 
-class Logout extends Component{
-    logout = () => {
+const Logout = () => {
+  const logout = () => {
         fetch("http://localhost:4000/logout",{
             method: 'get',
             credentials:"include",
@@ -10,21 +11,19 @@ class Logout extends Component{
             }
           })
           .then(() => {
-              alert("Redirect user to home page")
+              alert("Logged out sucessfully!!")
           })
           .catch((err) => {
               console.log(err);
           })
+          return <Redirect to="/" />
     }
 
-    render(){
-        return(
-            <div>
-                <button onClick={this.logout}>logout</button>
-            </div>
-        )
-    }
+return(
+  <div>
+     {logout()}
+  </div>
+)
 }
-
 
 export default Logout

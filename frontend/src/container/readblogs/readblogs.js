@@ -6,11 +6,13 @@ import "draft-js-inline-toolbar-plugin/lib/plugin.css";
 import "draft-js-side-toolbar-plugin/lib/plugin.css";
 import { convertToHTML } from "draft-convert";
 import Header from './../../component/header/header'
+import {Redirect} from 'react-router-dom'
 // import React from 'react';
 import './readblogs.css'
 const ReadBlogs = () => {
 
         const [blogs,setBlogs] = useState([]);
+        const [isAuthen ,setIsAuthen] = useState(true)
         // now we will put the blogs data in hooks parameter (blogs) 
         useEffect(()=>{
             fetch("http://localhost:4000/readblogs",{
@@ -23,7 +25,8 @@ const ReadBlogs = () => {
             .then(result => result.json())
             .then(result => {
                 if(result.err==="true"){
-                    alert("Redirect user to login page");
+                    // alert("Redirect user to login page");
+                    setIsAuthen(false);
                 }
                 else{
                     var blogsloc=[];
@@ -40,12 +43,20 @@ const ReadBlogs = () => {
                 console.log(err);
             })
         
-       
+      
       },[]);
+  
+  const help = ()=>{
+       if(isAuthen === false)
+       {
+          return <Redirect to="/login" />
+       }
+   }
 
 return(
 
   <div className=" App container-fluid" >
+      {help()}
       <div>
       <Header />
       </div>

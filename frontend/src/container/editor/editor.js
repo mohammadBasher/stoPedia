@@ -11,6 +11,8 @@ import "draftail/dist/draftail.css";
 import "draft-js-inline-toolbar-plugin/lib/plugin.css";
 import "draft-js-side-toolbar-plugin/lib/plugin.css";
 import Header from './../../component/header/header'
+import {Redirect} from "react-router-dom"
+import Login from './../login/login'
 const inlineToolbarPlugin = createInlineToolbarPlugin();
 const { InlineToolbar } = inlineToolbarPlugin;
 const sideToolbarPlugin = createSideToolbarPlugin();
@@ -18,11 +20,14 @@ const { SideToolbar } = sideToolbarPlugin;
 const undoPlugin = createUndoPlugin();
 // const { UndoButton, RedoButton } = undoPlugin;
 const plugins = [inlineToolbarPlugin, sideToolbarPlugin,undoPlugin];
+ 
 class Editor extends React.Component {
     constructor(props) {
         super(props);
+        // now testing a change in state..... for taking input from fetch funtion
         this.state = {
-            editorState: EditorState.createEmpty()
+            editorState: EditorState.createEmpty(),
+            isAuthen : true
         };
         this.changeState = this.changeState.bind(this);
     }
@@ -31,6 +36,40 @@ class Editor extends React.Component {
             editorState: state
         });
     }
+   
+     check= ()=> {
+       
+        fetch("http://localhost:4000/readblogs",{
+            credentials:"include",
+            method:"GET",
+            headers:{
+                "Content-type":"application/json;charset=utf-8"
+            }
+            })
+            .then(result => result.json())
+            .then(result =>{
+                if(result.err==="true")
+                {
+                    this.setState({
+                        isAuthen:false
+                    })
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            })
+        
+        if(this.state.isAuthen === false){
+           alert("You must login")  
+          return (<div>
+           <Redirect to="/login"/>
+          </div>
+          )
+        }else{
+            console.log("user is logged in ")
+        }
+     }
+
     submitHandler = () => {
         const data = {"content":convertToRaw(this.state.editorState.getCurrentContent())};
         console.log(data.content);
@@ -47,6 +86,7 @@ class Editor extends React.Component {
             console.log(result);
             if(result.err==="true"){
                 alert("Redirect user to login page");
+               
             }
             else{
                 alert("your data has been successfully saved ");
@@ -60,6 +100,7 @@ class Editor extends React.Component {
     render() {
         return (
        <div>
+           {this.check()}
             <Header />
             <div className="App-editor" >
                 <DraftailEditor
