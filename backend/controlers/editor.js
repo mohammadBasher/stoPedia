@@ -8,9 +8,12 @@ const editor = (req,res,next) => {
         res.send(response);
     }
     else{
-        const content = req.body;
+        const content = req.body.content;
+        const title = req.body.title;
+        const temp_tag = req.body.tags;
+        const tags  = temp_tag.split("$");
         const user_id = req.session.user._id;
-        const data = {content:content,user_id:user_id}
+        const data = {title:title,tags:tags,content:content,user_id:user_id}
         blogs = new blog(data);
         blogs.save()
         .then(() => {

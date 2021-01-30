@@ -27,7 +27,9 @@ class Editor extends React.Component {
         // now testing a change in state..... for taking input from fetch funtion
         this.state = {
             editorState: EditorState.createEmpty(),
-            isAuthen : true
+            isAuthen : true,
+            title : '',
+            tags : ''
         };
         this.changeState = this.changeState.bind(this);
     }
@@ -36,10 +38,16 @@ class Editor extends React.Component {
             editorState: state
         });
     }
+    handleChange = name => event =>{
+        this.setState({
+          [name]:event.target.value,
+          isAuth:"false"
+        })
+    }
    
      check= ()=> {
        
-        fetch("http://localhost:4000/readblogs",{
+        fetch("http://localhost:4000/isAuth",{
             credentials:"include",
             method:"GET",
             headers:{
@@ -71,7 +79,7 @@ class Editor extends React.Component {
      }
 
     submitHandler = () => {
-        const data = {"content":convertToRaw(this.state.editorState.getCurrentContent())};
+        const data = {"content":convertToRaw(this.state.editorState.getCurrentContent()),"title":this.state.title,"tags":this.state.tags};
         console.log(data.content);
         fetch("http://localhost:4000/editor",{
             credentials:"include",
@@ -102,51 +110,76 @@ class Editor extends React.Component {
        <div>
            {this.check()}
             <Header />
-            <div className="App-editor" >
-                <DraftailEditor
-                    editorState={this.state.editorState}
-                    onChange={this.changeState}
-                    placeholder="Tell your story..."
-                    plugins={plugins}
+            <form >
+
+                
+                <div >
+                <input 
+                type="text" 
+                placeholder="Title" 
+                value={this.state.title}
+                required="required"
+                onChange={this.handleChange("title")}
+                name="title"
                 />
-                <InlineToolbar>
-                    {
-                        externalProps => (
-                            <>
-                                <ItalicButton {...externalProps} />
-                                <BoldButton {...externalProps} />
-                                <UnderlineButton {...externalProps} />
-                                <UnorderedListButton {...externalProps} />
-                                <HeadlineOneButton {...externalProps} />
-                                <HeadlineTwoButton {...externalProps} />
-                                <HeadlineThreeButton {...externalProps} />
-                                <OrderedListButton {...externalProps} />
-                            </>
-                        )
-                    }
-                </InlineToolbar>
-                <SideToolbar>
-                    {
-                        externalProps => (
-                            <>
-                                <ItalicButton {...externalProps} />
-                                <BoldButton {...externalProps} />
-                                <UnderlineButton {...externalProps} />
-                                <UnorderedListButton {...externalProps} />
-                                <HeadlineOneButton {...externalProps} />
-                                <HeadlineTwoButton {...externalProps} />
-                                <HeadlineThreeButton {...externalProps} />
-                                <OrderedListButton {...externalProps} />
-                            </>
-                        )
-                    }
-                </SideToolbar>
-                 <div className="toolbox my-3">
-                    {/* <UndoButton />
-                    <RedoButton /> */}
-                    <button className="btn btn-outline-dark" onClick={this.submitHandler}>Post</button>
-                 </div>
-            </div>
+                </div>
+
+                <div >
+                <input 
+                type="text" 
+                placeholder="Tags start with '$'" 
+                value={this.state.tags}
+                required="required"
+                onChange={this.handleChange("tags")}
+                name="tags"
+                />
+                </div>
+
+                
+                <div className="App-editor" >
+                    <DraftailEditor
+                        editorState={this.state.editorState}
+                        onChange={this.changeState}
+                        placeholder="Tell your story..."
+                        plugins={plugins}
+                    />
+                    <InlineToolbar>
+                        {
+                            externalProps => (
+                                <>
+                                    <ItalicButton {...externalProps} />
+                                    <BoldButton {...externalProps} />
+                                    <UnderlineButton {...externalProps} />
+                                    <UnorderedListButton {...externalProps} />
+                                    <HeadlineOneButton {...externalProps} />
+                                    <HeadlineTwoButton {...externalProps} />
+                                    <HeadlineThreeButton {...externalProps} />
+                                    <OrderedListButton {...externalProps} />
+                                </>
+                            )
+                        }
+                    </InlineToolbar>
+                    <SideToolbar>
+                        {
+                            externalProps => (
+                                <>
+                                    <ItalicButton {...externalProps} />
+                                    <BoldButton {...externalProps} />
+                                    <UnderlineButton {...externalProps} />
+                                    <UnorderedListButton {...externalProps} />
+                                    <HeadlineOneButton {...externalProps} />
+                                    <HeadlineTwoButton {...externalProps} />
+                                    <HeadlineThreeButton {...externalProps} />
+                                    <OrderedListButton {...externalProps} />
+                                </>
+                            )
+                        }
+                    </SideToolbar>
+                    <div className="toolbox my-3">
+                        <button className="btn btn-outline-dark" onClick={this.submitHandler}>Post</button>
+                    </div>
+                </div>
+            </form>
         </div>
         );
     }

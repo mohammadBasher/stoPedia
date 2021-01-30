@@ -32,7 +32,11 @@ const ReadBlogs = () => {
                     var blogsloc=[];
                     var blog;
                         for (var i = 0; i < result.length; i++) {
-                            blog = convertToHTML(convertFromRaw(result[i].content.content));
+                            //console.log(result[i].title);
+                            //for(var j=0;j<result[i].tags.length;j++){
+                            //    console.log(result[i].tags[j]);
+                            //}
+                            blog = convertToHTML(convertFromRaw(result[i].content));
                             blogsloc.push(blog);
                         }
                 setBlogs(blogsloc)
