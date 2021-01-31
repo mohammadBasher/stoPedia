@@ -8,6 +8,8 @@ const mongoDBss = require('connect-mongodb-session')(session);
 const signup = require('./routes/signup').signup;
 const login = require('./routes/login').login;
 const logout = require('./routes/logout').logout;
+const isAuth = require('./routes/isAuth');
+const search = require('./routes/search');
 //const fp = require('./routes/login').fp;
 const editor = require('./routes/editor');
 const readblogs = require('./routes/readblogs');
@@ -46,9 +48,11 @@ mongoose.connect('mongodb://localhost:27017/stopedia',{
 
 const port = "4000";
 
+app.use(isAuth);
 app.use(signup);
 app.use(login);
 //app.use(fp);
+app.use(search);
 app.use(editor);
 app.use(readblogs);
 app.use(logout);

@@ -4,6 +4,12 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const blog = new Schema({
+    title:{
+        type:String
+    },
+    tags:{
+        type: []
+    },
     content:{
         type:Object
     },
