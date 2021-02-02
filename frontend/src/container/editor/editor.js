@@ -113,20 +113,27 @@ class Editor extends React.Component {
             <form >
 
                 
-                <div >
+                
+
+                
+                <div className="App-editor" >
+                <br/>
+                <div className="form-group">
                 <input 
                 type="text" 
                 placeholder="Title" 
+                className = "form-control input-extra"
                 value={this.state.title}
                 required="required"
                 onChange={this.handleChange("title")}
                 name="title"
                 />
                 </div>
-
-                <div >
+                   <br/>
+                <div className="form-group">
                 <input 
                 type="text" 
+                className = "form-control input-extra"
                 placeholder="Tags start with '$'" 
                 value={this.state.tags}
                 required="required"
@@ -135,8 +142,6 @@ class Editor extends React.Component {
                 />
                 </div>
 
-                
-                <div className="App-editor" >
                     <DraftailEditor
                         editorState={this.state.editorState}
                         onChange={this.changeState}

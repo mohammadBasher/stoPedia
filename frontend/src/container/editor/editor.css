@@ -6,7 +6,7 @@
     margin-top: 0;
     width: 100%;
     /* min-height: 80vh; */
-    border:2px solid black;
+    /* border:2px solid black; */
 }
 /* Override default */
 .Draftail-Toolbar {
@@ -18,7 +18,7 @@
     border: none !important;
     width: 60% !important;
     min-height: 300px;
-    margin-top: 100px !important;
+    margin-top: 50px !important;
     margin-left: auto !important;
     margin-right: auto !important;
     background-color: yellow !important;
@@ -30,4 +30,24 @@
 /* Override default */
 .public-DraftEditorPlaceholder-inner {
     font-family: Georgia, "Times New Roman", Times, serif !important;
+}
+
+.input-extra{
+    width: 60%;
+    /* text-align: center; */
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+@media only screen and (max-width: 500px){
+    .Draftail-Editor{
+        width: 90% !important;
+    }
+    
+.input-extra{
+    width: 90%;
+    /* text-align: center; */
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
 }

@@ -31,16 +31,23 @@ const ReadBlogs = () => {
                 else{
                     var blogsloc=[];
                     var blog;
+                    var full;
+                    // console.log(result)
                         for (var i = 0; i < result.length; i++) {
-                            //console.log(result[i].title);
-                            //for(var j=0;j<result[i].tags.length;j++){
+                            // console.log(result[i].title);
+                            // for(var j=0;j<result[i].tags.length;j++){
                             //    console.log(result[i].tags[j]);
-                            //}
+                            // }
                             blog = convertToHTML(convertFromRaw(result[i].content));
-                            blogsloc.push(blog);
+                            full = {
+                                content : blog,
+                                title : result[i].title,
+                                tags : result[i].tags
+                            }
+                            blogsloc.push(full);
                         }
                 setBlogs(blogsloc)
-                // console.log(blogs)
+                console.log(full)
                 }
             })
             .catch(err => {
@@ -70,7 +77,7 @@ return(
                   return (
                       <div className="card card-cls my-4 mx-2 p-3 ">
                              <div className="card-text">
-                                 <span  dangerouslySetInnerHTML={{__html:each}}></span>
+                                 <span  dangerouslySetInnerHTML={{__html:each.content}}></span>
                              <button className="btn btn-outline-dark">see more</button>    
                              </div>
                             
