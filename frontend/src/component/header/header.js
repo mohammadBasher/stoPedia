@@ -12,27 +12,34 @@ const Header = () => {
  const [search , setSearch] = useState({
    searchVal : ""
  })
+  const setname = (event) => {
+    search.searchVal=event.target.value;
+  }
   const searchUser = (event)=>{
-    //   fetch('http://localhost:4000/search',{
-    //     credentials:"include",
-    //     method:"POST",
-    //     headers:{
-    //         "Content-type":"application/json"
-    //     },
-    //     body: JSON.stringify(event.target.value)
-    // }).then(res => res.json())
-    //   .then(res =>{
-    //     console.log(res);
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    // })  
+    const toSearch={"username":search.searchVal};
+    console.log(toSearch);
+    alert("Wait for sometime");
+       fetch('http://localhost:4000/search',{
+         credentials:"include",
+         method:"POST",
+         headers:{
+             "Content-type":"application/json"
+         },
+         body: JSON.stringify(toSearch)
+     }).then(res => res.json())
+       .then(res =>{
+         console.log(res);
+         alert("Wait for sometime");
+       })
+       .catch(err => {
+         console.log(err);
+     })  
 
 
   }
   const validate = ()=>{
 
-    fetch("http://localhost:4000/readblogs",{
+    fetch("http://localhost:4000/isAuth",{
       credentials:"include",
       method:"GET",
       headers:{
@@ -46,8 +53,7 @@ const Header = () => {
             
              setIsAuth({...isAuth , isHere:"false"})
           }else{
-            // setIsAuth({...isAuth,isHere:"true" , name:})
-            // console.log(result)
+             setIsAuth({...isAuth,isHere:"true" , name:"Sample user"})
           }
       })
       .catch(err => {
@@ -92,22 +98,18 @@ const Header = () => {
                
               </ul>
 
-              {/* <form class=" my-2 my-lg-0 search"> */}
+              <form class=" my-2 my-lg-0 search" onSubmit={searchUser}>
               <input 
               className="form-control search" 
               type="search" 
               placeholder="Search" 
               value={search.searchVal}
-              onChange={searchUser}
+              onChange={setname}
               name="searchVal"
               />
-              <button className="btn btn-outline-success mx-5 btn-search" >Search</button>
-              {/* </form> */}
-
+              <button type="submit" className="btn btn-outline-success mx-5 btn-search" >Search</button>
+              </form>
             </div>
-
-            
-         
           </div>
 
         </nav>

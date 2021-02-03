@@ -5,4 +5,8 @@ module.exports = isAuth = (req,res,next) =>{
         response.err = "true";
         res.send(response);
     }
+    else{
+        //console.log("user is logged in");
+        res.send(response);
+    }
 }
