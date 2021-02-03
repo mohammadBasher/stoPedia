@@ -2,3 +2,13 @@
     width: 500px;
     display: inline-block;
 }
+.blogtag{
+    background-color: #FF9933;
+    padding: 5px 8px;
+    margin-bottom: 10px;
+    /* display: block; */
+    border-radius: 5px;
+}
+.date{
+    color: #C3CDE6;
+}

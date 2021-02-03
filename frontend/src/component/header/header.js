@@ -1,13 +1,69 @@
-import React from 'react';
+import React,{useState} from 'react';
 import "./style.css"
 import {Link} from 'react-router-dom'
 
 const Header = () => {
-return(
-  <div className="App">
-        <nav className="navbar navbar-expand-md navbar-light bg-light">
+  
+  const [isAuth,setIsAuth] = useState({
+    isHere:"false",
+    name:""
+  })
+  
+ const [search , setSearch] = useState({
+   searchVal : ""
+ })
+  const searchUser = (event)=>{
+    //   fetch('http://localhost:4000/search',{
+    //     credentials:"include",
+    //     method:"POST",
+    //     headers:{
+    //         "Content-type":"application/json"
+    //     },
+    //     body: JSON.stringify(event.target.value)
+    // }).then(res => res.json())
+    //   .then(res =>{
+    //     console.log(res);
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    // })  
+
+
+  }
+  const validate = ()=>{
+
+    fetch("http://localhost:4000/readblogs",{
+      credentials:"include",
+      method:"GET",
+      headers:{
+          "Content-type":"application/json;charset=utf-8"
+      }
+      })
+      .then(result => result.json())
+      .then(result =>{
+          if(result.err==="true")
+          {
             
-          <div className="container-fluid">
+             setIsAuth({...isAuth , isHere:"false"})
+          }else{
+            // setIsAuth({...isAuth,isHere:"true" , name:})
+            // console.log(result)
+          }
+      })
+      .catch(err => {
+          console.log(err);
+      })
+  
+  
+  }
+
+  return(
+  <div className="App">
+    
+    {/* {console.log("hello")} */}
+        <nav className="navbar navbar-expand-xl navbar-light bg-light">
+        {validate()}
+          <div className="container-fluid main-nav">
            
             <Link className="navbar-brand" to='/' >
             <i className="fas fa-2x fa-book"></i>
@@ -32,9 +88,25 @@ return(
                 <li className="nav-item mx-5 ">
                 <Link className="nav-link" to="/logout">Log out</Link>
                 </li>
+
                
               </ul>
+
+              {/* <form class=" my-2 my-lg-0 search"> */}
+              <input 
+              className="form-control search" 
+              type="search" 
+              placeholder="Search" 
+              value={search.searchVal}
+              onChange={searchUser}
+              name="searchVal"
+              />
+              <button className="btn btn-outline-success mx-5 btn-search" >Search</button>
+              {/* </form> */}
+
             </div>
+
+            
          
           </div>
 

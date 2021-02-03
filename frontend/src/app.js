@@ -7,6 +7,7 @@ import Logout from './container/logout/logout'
 import SignUp from './container/signup/signup'
 import Editor from './container/editor/editor'
 import ReadBlogs from './container/readblogs/readblogs'
+import BlogPage from './container/blogpage/blogpage'
 const App = () => {
 return(
   <div>
@@ -17,6 +18,7 @@ return(
          <Route path='/logout' component={Logout} />
          <Route path='/editor' component={Editor} />
          <Route path='/readblogs' component={ReadBlogs} />
+         <Route path='/blogpage/:id' component={BlogPage} />
      </Switch>
   </div>
 )

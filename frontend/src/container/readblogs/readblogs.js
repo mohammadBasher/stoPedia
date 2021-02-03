@@ -6,7 +6,10 @@ import "draft-js-inline-toolbar-plugin/lib/plugin.css";
 import "draft-js-side-toolbar-plugin/lib/plugin.css";
 import { convertToHTML } from "draft-convert";
 import Header from './../../component/header/header'
-import {Redirect} from 'react-router-dom'
+import {Redirect,Link} from 'react-router-dom'
+import dateFormat from 'dateformat';
+
+
 // import React from 'react';
 import './readblogs.css'
 const ReadBlogs = () => {
@@ -31,16 +34,25 @@ const ReadBlogs = () => {
                 else{
                     var blogsloc=[];
                     var blog;
+                    var full;
+                    // console.log(result)
                         for (var i = 0; i < result.length; i++) {
-                            //console.log(result[i].title);
-                            //for(var j=0;j<result[i].tags.length;j++){
+                            // console.log(result[i].title);
+                            // for(var j=0;j<result[i].tags.length;j++){
                             //    console.log(result[i].tags[j]);
-                            //}
+                            // }
                             blog = convertToHTML(convertFromRaw(result[i].content));
-                            blogsloc.push(blog);
+                            full = {
+                                content : blog,
+                                title : result[i].title,
+                                tags : result[i].tags,
+                                date : result[i].date_time,
+                                blog_id: result[i]._id
+                            }
+                            blogsloc.push(full);
                         }
                 setBlogs(blogsloc)
-                // console.log(blogs)
+                console.log(result)
                 }
             })
             .catch(err => {
@@ -56,6 +68,7 @@ const ReadBlogs = () => {
           return <Redirect to="/login" />
        }
    }
+   
 
 return(
 
@@ -70,10 +83,23 @@ return(
                   return (
                       <div className="card card-cls my-4 mx-2 p-3 ">
                              <div className="card-text">
-                                 <span  dangerouslySetInnerHTML={{__html:each}}></span>
-                             <button className="btn btn-outline-dark">see more</button>    
+                                 {/* <span  dangerouslySetInnerHTML={{__html:each.content}}></span> */}
+                                <h3>{each.title}</h3> 
+                                <br/>
+                                <div className="tag-div">
+                                <b><span className="blogtag">{each.tags}</span></b>
+                                </div>
+                                <br/>   
+                                <p className="date">Creation Date : {dateFormat(each.date,"mmmm dS, yyyy")}</p>                             
                              </div>
-                            
+                             <Link 
+                             
+                             to={{
+                                 pathname:`/blogpage/${each.blog_id}`,
+                                 state:each
+                                }} 
+                             
+                             ><button className="btn btn-outline-dark">see more</button></Link> 
                       </div>
                   )
               })

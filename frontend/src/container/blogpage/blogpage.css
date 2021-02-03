@@ -1,0 +1,13 @@
+.tag-span{
+    background-color: aquamarine;
+    padding: 3px 5px;
+    margin: 10px;
+    border-radius: 15%;
+}
+.main{
+    word-spacing: 2px;
+    
+}
+.blog-date{
+    color: #C3CDE6;
+}
