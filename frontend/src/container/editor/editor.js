@@ -56,11 +56,14 @@ class Editor extends React.Component {
             })
             .then(result => result.json())
             .then(result =>{
-                if(result.err==="true")
+                if(result.username===null)
                 {
                     this.setState({
                         isAuthen:false
                     })
+                }
+                else{
+                    console.log(result.username);
                 }
             })
             .catch(err => {

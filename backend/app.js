@@ -9,10 +9,11 @@ const signup = require('./routes/signup').signup;
 const login = require('./routes/login').login;
 const logout = require('./routes/logout').logout;
 const isAuth = require('./routes/isAuth');
-const search = require('./routes/search');
+const search = require('./routes/search/searchBlogs');
 //const fp = require('./routes/login').fp;
 const editor = require('./routes/editor');
 const readblogs = require('./routes/readblogs');
+const getNames = require('./routes/search/searchNames');
 
 const app = express();
 const ss = new mongoDBss({
@@ -56,6 +57,7 @@ app.use(search);
 app.use(editor);
 app.use(readblogs);
 app.use(logout);
+app.use(getNames);
 
 app.listen(port,()=>{
     console.log("Server is running on "+port);

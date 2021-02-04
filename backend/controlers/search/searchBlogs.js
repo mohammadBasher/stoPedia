@@ -1,7 +1,7 @@
-const blogs = require('../models/blogs');
-const user = require('../models/user');
+const blogs = require('../../models/blogs');
+const user = require('../../models/user');
 
-module.exports = search = (req,res,next) =>{
+module.exports = (req,res,next) =>{
     console.log(req.session);
     var response = { "err":"false" };
     if(!req.session.user){
@@ -13,6 +13,7 @@ module.exports = search = (req,res,next) =>{
         const username = req.body.username;
         let user_id;
         user.findOne({username},(err,user) => {
+            console.log(user);
             user_id=user._id;
             console.log(user_id);
             blogs.find({user_id},(err,blog) => {
