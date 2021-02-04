@@ -41,13 +41,15 @@ const ReadBlogs = () => {
                             // for(var j=0;j<result[i].tags.length;j++){
                             //    console.log(result[i].tags[j]);
                             // }
+                            console.log(result[0].username);
                             blog = convertToHTML(convertFromRaw(result[i].content));
                             full = {
                                 content : blog,
                                 title : result[i].title,
                                 tags : result[i].tags,
                                 date : result[i].date_time,
-                                blog_id: result[i]._id
+                                blog_id: result[i]._id,
+                                creator : result[i].username
                             }
                             blogsloc.push(full);
                         }
@@ -87,10 +89,19 @@ return(
                                 <h3>{each.title}</h3> 
                                 <br/>
                                 <div className="tag-div">
-                                <b><span className="blogtag">{each.tags}</span></b>
+                                <b><span className="blogtag">{
+                                    each.tags.map((each)=>{
+                                    if(each!=="")
+                                    return (
+                                        <span className="tag-span" >{each}</span>
+                                    )
+                                    })
+                                }</span></b>
+                                <br/><br/>
+                                <b><p>{each.creator}</p></b>
                                 </div>
                                 <br/>   
-                                <p className="date">Creation Date : {dateFormat(each.date,"mmmm dS, yyyy")}</p>                             
+                                <p className="date">Creation Date : {dateFormat(each.date,"mmmm dS, yyyy")}</p>                       
                              </div>
                              <Link 
                              

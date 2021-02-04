@@ -26,7 +26,10 @@ const Header = () => {
              "Content-type":"application/json"
          },
          body: JSON.stringify(toSearch)
-     }).then(res => res.json())
+     }).then(res => {
+       console.log(res);
+       return res.json();
+     })
        .then(res =>{
          console.log(res);
          alert("Wait for sometime");
@@ -48,12 +51,13 @@ const Header = () => {
       })
       .then(result => result.json())
       .then(result =>{
-          if(result.err==="true")
+          if(result.username===null)
           {
             
-             setIsAuth({...isAuth , isHere:"false"})
+             setIsAuth({...isAuth , isHere:"false" , name:""})
           }else{
-             setIsAuth({...isAuth,isHere:"true" , name:"Sample user"})
+             setIsAuth({...isAuth,isHere:"true" , name:result.username});
+             console.log(result.username);
           }
       })
       .catch(err => {
@@ -93,6 +97,9 @@ const Header = () => {
                 </li>
                 <li className="nav-item mx-5 ">
                 <Link className="nav-link" to="/logout">Log out</Link>
+                </li>
+                <li className="nav-item mx-5 ">
+                <label className="nav-link" >{isAuth.name}</label>
                 </li>
 
                

@@ -1,7 +1,7 @@
-const blogs = require('../models/blogs');
-const user = require('../models/user');
+const blogs = require('../../models/blogs');
+const user = require('../../models/user');
 
-module.exports = search = (req,res,next) =>{
+module.exports = (req,res,next) =>{
     console.log(req.session);
     var response = { "err":"false" };
     if(!req.session.user){

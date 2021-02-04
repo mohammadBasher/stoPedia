@@ -13,7 +13,8 @@ const editor = (req,res,next) => {
         const temp_tag = req.body.tags;
         const tags  = temp_tag.split("$");
         const user_id = req.session.user._id;
-        const data = {title:title,tags:tags,content:content,user_id:user_id}
+        const user_name = req.session.user.username;
+        const data = {title:title,tags:tags,content:content,user_id:user_id,username:user_name}
         blogs = new blog(data);
         blogs.save()
         .then(() => {

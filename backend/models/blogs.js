@@ -17,6 +17,9 @@ const blog = new Schema({
         type:mongoose.Schema.ObjectId,
         ref:"user"
     },
+    username:{
+        type:String
+    },
     date_time:{
         type: Date,
         default: Date.now
