@@ -1,0 +1,10 @@
+.card-cls{
+    background-color: white;
+    /* position: absolute; */
+  /* width: auto; */
+  border-bottom: 2px solid grey;
+  padding-left: 10px;
+}
+.card-cls:hover{
+    background-color: whitesmoke;
+}
