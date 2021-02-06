@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
 import "./style.css"
 import {Link} from 'react-router-dom'
-
+import Card from './card'
 const Header = () => {
   
   const [isAuth,setIsAuth] = useState({
@@ -10,16 +10,20 @@ const Header = () => {
   })
   
  const [search , setSearch] = useState({
-   searchVal : ""
- })
+   searchVal:""
+ });
+ 
+ const [result,setResult] = useState([])
+ 
   const setname = (event) => {
-    search.searchVal=event.target.value;
+    setSearch({...search,searchVal:event.target.value})
+    setResult([])
   }
   const searchUser = (event)=>{
     const toSearch={"username":search.searchVal};
-    console.log(toSearch);
-    alert("Wait for sometime");
-       fetch('http://localhost:4000/search',{
+    // console.log(toSearch);
+    // alert("Wait for sometime");
+       fetch('http://localhost:4000/searchNames',{
          credentials:"include",
          method:"POST",
          headers:{
@@ -27,18 +31,18 @@ const Header = () => {
          },
          body: JSON.stringify(toSearch)
      }).then(res => {
-       console.log(res);
+      //  console.log(res);
        return res.json();
      })
        .then(res =>{
          console.log(res);
-         alert("Wait for sometime");
+         setResult(res);
        })
        .catch(err => {
          console.log(err);
      })  
 
-
+  
   }
   const validate = ()=>{
 
@@ -57,7 +61,7 @@ const Header = () => {
              setIsAuth({...isAuth , isHere:"false" , name:""})
           }else{
              setIsAuth({...isAuth,isHere:"true" , name:result.username});
-             console.log(result.username);
+            //  console.log(result);
           }
       })
       .catch(err => {
@@ -66,7 +70,7 @@ const Header = () => {
   
   
   }
-
+  
   return(
   <div className="App">
     
@@ -89,23 +93,30 @@ const Header = () => {
                 <li className="nav-item mx-5 ">
                 <Link className="nav-link"  to="/readblogs" >Read</Link>
                 </li>
-                <li className="nav-item mx-5">
-                <Link className="nav-link" to="/signup" >Sign Up</Link>
-                </li>
-                <li className="nav-item mx-5 ">
-                <Link className="nav-link" to="/login">Log in</Link>
-                </li>
-                <li className="nav-item mx-5 ">
-                <Link className="nav-link" to="/logout">Log out</Link>
-                </li>
-                <li className="nav-item mx-5 ">
-                <label className="nav-link" >{isAuth.name}</label>
-                </li>
 
-               
+                {
+                  isAuth.isHere === "false" ?  (<>
+                    <li className="nav-item mx-5">
+                    <Link className="nav-link" to="/signup" >Sign Up</Link>
+                    </li>
+                    <li className="nav-item mx-5 ">
+                    <Link className="nav-link" to="/login">Log in</Link>
+                    </li></>
+                  ) : (<>
+                    <li className="nav-item mx-5 ">
+                    <Link className="nav-link" to="/logout">Log out</Link>
+                    </li>
+                    <li className="nav-item mx-5 ">
+                    <label className="nav-link" >{isAuth.name}</label>
+                    </li>
+                  </>)
+                }
+                
               </ul>
 
-              <form class=" my-2 my-lg-0 search" onSubmit={searchUser}>
+              {/* <form class=" my-2 my-lg-0 search" onSubmit={searchUser}> */}
+            <div>
+             <div className="input-res">
               <input 
               className="form-control search" 
               type="search" 
@@ -114,13 +125,36 @@ const Header = () => {
               onChange={setname}
               name="searchVal"
               />
-              <button type="submit" className="btn btn-outline-success mx-5 btn-search" >Search</button>
-              </form>
+              {
+                
+              }
+              <div className="search-res">
+            {
+                result.length > 0 ?(result.map((each)=>{
+                  return (
+                  <>
+                  <Card name={each} />
+                  <br/>
+                  </>
+                  )
+                })
+               ):""
+              }
+            </div>
+
+             </div>
+
+            
+            </div>
+              <button type="submit" className="btn btn-outline-success mx-5 btn-search" onClick={searchUser}>Search</button>
+              {
+                 
+              }
             </div>
           </div>
 
         </nav>
-
+    
   </div>
 )
 }

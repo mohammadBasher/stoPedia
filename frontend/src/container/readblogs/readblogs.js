@@ -98,7 +98,7 @@ return(
                                     })
                                 }</span></b>
                                 <br/><br/>
-                                <b><p>{each.creator}</p></b>
+                                
                                 </div>
                                 <br/>   
                                 <p className="date">Creation Date : {dateFormat(each.date,"mmmm dS, yyyy")}</p>                       

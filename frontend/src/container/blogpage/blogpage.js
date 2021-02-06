@@ -11,6 +11,7 @@ const Blogpage = (props) => {
   const tags = location.state.tags
   const content = location.state.content
   const blogDate = location.state.date
+  const author = location.state.creator
   // location.state contains title , tag ,date , content ,etc...
   return(
   <div>
@@ -31,6 +32,10 @@ const Blogpage = (props) => {
             <br/><br/>
             <div className="main" dangerouslySetInnerHTML={{__html:content}}>
             </div>
+            <br/><br/>
+            <b>
+            Written By : {author}
+            </b>
             <br/><br/>
             <p className="blog-date">Creation Date : {dateFormat(blogDate,"mmmm dS, yyyy")}</p>
         </div>
