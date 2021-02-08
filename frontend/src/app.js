@@ -8,6 +8,7 @@ import SignUp from './container/signup/signup'
 import Editor from './container/editor/editor'
 import ReadBlogs from './container/readblogs/readblogs'
 import BlogPage from './container/blogpage/blogpage'
+import Otherblogs from './container/otherblogs/otherblogs';
 const App = () => {
 return(
   <div>
@@ -19,6 +20,7 @@ return(
          <Route path='/editor' component={Editor} />
          <Route path='/readblogs' component={ReadBlogs} />
          <Route path='/blogpage/:id' component={BlogPage} />
+         <Route path='/otherblogs/:id' component={Otherblogs}/>
      </Switch>
   </div>
 )

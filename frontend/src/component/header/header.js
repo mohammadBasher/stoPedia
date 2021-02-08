@@ -35,7 +35,7 @@ const Header = () => {
        return res.json();
      })
        .then(res =>{
-         console.log(res);
+        //  console.log(res);
          setResult(res);
        })
        .catch(err => {
@@ -133,7 +133,7 @@ const Header = () => {
                 result.length > 0 ?(result.map((each)=>{
                   return (
                   <>
-                  <Card name={each} />
+                  <Card name={each} address={`/otherblogs/${each}`} userstate={each} />
                   <br/>
                   </>
                   )
