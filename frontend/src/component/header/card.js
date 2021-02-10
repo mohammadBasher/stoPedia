@@ -1,11 +1,16 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link,useLocation } from 'react-router-dom';
 import './card.css'
+
 const Card = (props) => {
+
 return(
   <div className="card-cls">
       <br/>
-     <Link to={props.userpage}><b>{props.name}</b></Link>
+     <Link to={{
+       pathname:props.address,
+       state:props.userstate
+     }}><b>{props.name}</b></Link>
       <br/>
   </div>
 )
